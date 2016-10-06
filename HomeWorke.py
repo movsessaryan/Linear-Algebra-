@@ -44,9 +44,23 @@ def gcd(a, b):
         return a
     return gcd(b, a % b)
 
-matrix = [[12,13,12],[1,123,0],[12,23,3], [12,23,3], [10,22,31]]
-gaus(matrix)
+def logranj(matrix, ind):
+    assert len(matrix) == len(matrix[0]), 'the matrix mast be square'
+    for i in range(ind+1 ,len(matrix)):
+        a = matrix[ind][ind]
+        b = matrix[i][ind]
+        g = gcd(a,b)
+        k1 = b/g;
+        k2 = a/g;
+        for j in range(len(matrix)):
+            matrix[i][j] = matrix[i][j]*k2 - matrix[ind][j]*k1
+        '''do same for coulumns'''
+        for j in range(len(matrix)):
+            matrix[j][i] = matrix[j][i]*k2 - matrix[j][ind]*k1
+
+matrix = [[12,13,12],[1,123,0],[12,23,3]]
+gaus(matrix,logranj)
+
 for item in matrix:
     normalize(item)
     print (item)
-
